@@ -222,7 +222,7 @@ body {
 /* ── CLUSTER BODY ── */
 .cluster-body {
   display: grid;
-  grid-template-columns: 68px repeat(auto-fill, minmax(144px, 1fr));
+  grid-template-columns: 90px repeat(auto-fill, minmax(190px, 1fr));
 }
 
 .prio-col {
@@ -257,6 +257,7 @@ body {
 }
 
 .member:last-child { border-right: none; }
+.member.member-border-right { border-right: 1px solid var(--border); }
 .member:hover { background: var(--surface-hover); }
 
 .member-top {
@@ -396,7 +397,7 @@ body {
   body { padding: 24px 16px 60px; }
   .page-header { flex-direction: column; align-items: flex-start; gap: 16px; }
   .prio-col { display: none; }
-  .cluster-body { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
+  .cluster-body { grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); }
   .two-col { grid-template-columns: 1fr; }
 }
 </style>
@@ -412,7 +413,6 @@ body {
       <div class="legend-item"><div class="legend-pip" style="background:#e8eef8;border:1px solid #b0c4e8"></div>Primary</div>
       <div class="legend-item"><div class="legend-pip" style="background:#f0fdf4;border:1px solid #bbf7d0"></div>Secondary</div>
       <div class="legend-item"><div class="legend-pip" style="background:#fdf4ff;border:1px solid #e9d5ff"></div>Tertiary</div>
-      <div class="legend-item"><div class="legend-pip" style="background:#fde8e8;border:1px solid var(--red)"></div>Changed</div>
     </div>
   </header>
 
@@ -468,7 +468,7 @@ body {
             <div class="tag-empty"></div>
           </div>
         </div>
-        <div class="member">
+        <div class="member member-border-right">
           <div class="member-top">
             <div class="role-badge role-support">Support</div>
             <div class="member-name">Jan Cermak</div>
@@ -533,7 +533,7 @@ body {
             <div class="tag p3">Knowledge</div>
           </div>
         </div>
-        <div class="member">
+        <div class="member member-border-right">
           <div class="member-top">
             <div class="role-badge role-ui">UI</div>
             <div class="member-name">Lenka Dobranska</div>
@@ -586,9 +586,9 @@ body {
             <div class="tag p3">Knowledge</div>
           </div>
         </div>
-        <div class="member">
+        <div class="member member-border-right">
           <div class="member-top">
-            <div class="role-badge role-ops">Design Ops</div>
+            <div class="role-badge role-ui">UI</div>
             <div class="member-name">Petr Novak</div>
             <div class="member-role-text">Director of UI &amp; Design System</div>
           </div>
@@ -617,7 +617,7 @@ body {
             <div class="prio-label">Secondary</div>
             <div class="prio-label">Tertiary</div>
           </div>
-          <div class="member">
+          <div class="member member-border-right">
             <div class="member-top">
               <div class="member-name">Lukas Kus</div>
               <div class="member-role-text">Motion Designer</div>
