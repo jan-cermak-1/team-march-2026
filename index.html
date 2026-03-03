@@ -1,534 +1,683 @@
 <!DOCTYPE html>
-<html lang="cs">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Design Team — Q2 2026</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<title>Design Team · Q2 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #f7f7f5;
+  --surface: #ffffff;
+  --surface-hover: #f9f9f8;
+  --border: #e8e8e5;
+  --border-strong: #d0d0cc;
+  --text: #191918;
+  --text-muted: #8a8a85;
+  --text-faint: #b8b8b3;
+  --red: #eb5757;
+
+  --p1-bg: #e8eef8;
+  --p1-fg: #1e3a6e;
+  --p2-bg: #f0fdf4;
+  --p2-fg: #166534;
+  --p2-border: #bbf7d0;
+  --p3-bg: #fdf4ff;
+  --p3-fg: #7e22ce;
+  --p3-border: #e9d5ff;
+
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.04), 0 4px 12px rgba(0,0,0,0.04);
+  --shadow-md: 0 2px 8px rgba(0,0,0,0.06), 0 8px 28px rgba(0,0,0,0.07);
+  --shadow-lg: 0 4px 16px rgba(0,0,0,0.08), 0 16px 48px rgba(0,0,0,0.10);
+
+  --radius: 14px;
+  --radius-sm: 8px;
+  --radius-xs: 5px;
+  --tag-h: 32px;
+  --tag-gap: 4px;
+}
+
+@media (prefers-color-scheme: dark) {
   :root {
-    --bg: #EFEDE7; --surface: #FAFAF8; --border: #E3DFD8; --border-light: #EDEBE6;
-    --text-primary: #1A1814; --text-secondary: #6B6660; --text-muted: #B0AAA3;
-    --p1: #3DB83A; --p1-text: #fff; --p2: #F0C94A; --p2-text: #5C4300;
-    --p3: #7BBDD8; --p3-text: #163344; --new: #F05A22;
-    --team-pink: #F9D0E5; --team-purple: #DDD6FF;
-    --cluster-cortex: #DBEAFE; --cluster-content: #D1FAE5; --cluster-intel: #FEF3C7;
-    --tag-h: 40px;
-    --tag-gap: 6px;
-    --radius-sm: 6px; --radius-md: 10px; --radius-lg: 14px;
-    --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.05);
+    --bg: #191918;
+    --surface: #252523;
+    --surface-hover: #2e2e2b;
+    --border: #333330;
+    --border-strong: #444440;
+    --text: #ebebea;
+    --text-muted: #7a7a75;
+    --text-faint: #555550;
+    --red: #ff6b6b;
+
+    --p1-bg: #1e2d4a;
+    --p1-fg: #a8c0f0;
+    --p2-bg: #052e16;
+    --p2-fg: #86efac;
+    --p2-border: #166534;
+    --p3-bg: #3b0764;
+    --p3-fg: #d8b4fe;
+    --p3-border: #7e22ce;
+
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.2), 0 4px 12px rgba(0,0,0,0.15);
+    --shadow-md: 0 2px 8px rgba(0,0,0,0.25), 0 8px 28px rgba(0,0,0,0.2);
+    --shadow-lg: 0 4px 16px rgba(0,0,0,0.3), 0 16px 48px rgba(0,0,0,0.25);
   }
+}
 
-  body { font-family: 'DM Sans', sans-serif; background: var(--bg); padding: 40px 32px; min-height: 100vh; color: var(--text-primary); }
+html { -webkit-font-smoothing: antialiased; }
 
-  .board { max-width: 1200px; margin: 0 auto; background: var(--surface); border-radius: var(--radius-lg); border: 1.5px solid var(--border); box-shadow: var(--shadow); padding: 40px 40px 48px; }
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  padding: 48px 32px 80px;
+}
 
-  .board-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 24px; gap: 24px; flex-wrap: wrap; }
-  .board-title h1 { font-size: 18px; font-weight: 700; letter-spacing: -0.3px; line-height: 1.3; }
-  .board-title p { font-size: 12px; color: var(--text-muted); margin-top: 4px; font-weight: 500; }
-  .legend { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; flex-shrink: 0; }
-  .legend-item { display: flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 600; color: var(--text-secondary); }
-  .legend-dot { width: 9px; height: 9px; border-radius: 3px; }
+.page-wrap {
+  max-width: 1100px;
+  margin: 0 auto;
+}
 
-  /* TOGGLE */
-  .toggle-bar { display: flex; gap: 8px; margin-bottom: 28px; background: var(--bg); border-radius: var(--radius-md); padding: 4px; width: fit-content; }
-  .toggle-btn { padding: 8px 18px; border-radius: 8px; border: none; font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.18s; color: var(--text-secondary); background: transparent; }
-  .toggle-btn.active { background: white; color: var(--text-primary); box-shadow: 0 1px 4px rgba(0,0,0,0.10); }
+/* ── HEADER ── */
+.page-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 36px;
+  flex-wrap: wrap;
+}
 
-  .view { display: none; }
-  .view.active { display: block; }
+.header-left {}
 
-  /* TEAMS */
-  .micro-teams { display: flex; flex-direction: column; gap: 16px; }
-  .micro-team { border-radius: var(--radius-md); border: 1.5px solid var(--border); overflow: hidden; }
+.page-eyebrow {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
 
-  .team-header { padding: 9px 18px; font-size: 10.5px; font-weight: 700; letter-spacing: 0.6px; text-transform: uppercase; color: #2a2520; background: var(--team-pink); }
-  .team-director .team-header { background: var(--team-purple); }
-  .cluster-cortex  .team-header { background: var(--cluster-cortex); color: #1e3a5f; }
-  .cluster-content .team-header { background: var(--cluster-content); color: #064e3b; }
-  .cluster-intel   .team-header { background: var(--cluster-intel);   color: #78350f; }
+.page-title {
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: -0.8px;
+  line-height: 1.1;
+  color: var(--text);
+}
 
-  .cluster-label { display: inline-block; font-size: 9px; font-weight: 800; letter-spacing: 0.8px; text-transform: uppercase; padding: 2px 8px; border-radius: 20px; margin-left: 8px; vertical-align: middle; opacity: 0.6; background: rgba(0,0,0,0.08); }
+.page-subtitle {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-top: 6px;
+  font-weight: 400;
+}
 
-  /* GRID LAYOUT — key fix */
-  /*
-    team-body is a grid:
-    col 0 = prio labels (fixed width)
-    col 1..N = member columns
+.legend {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  flex-wrap: wrap;
+  padding-bottom: 2px;
+}
 
-    Row structure per member:
-      row 1: member-top (avatar area) — auto height
-      row 2: tag p1 — fixed 40px
-      row 3: tag p2 — fixed 40px
-      row 4: tag p3 — fixed 40px
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text-muted);
+}
 
-    prio-col spans rows 2-4 and has 3 label cells aligned to each tag row.
-  */
+.legend-pip {
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
 
-  .team-body {
-    display: grid;
-    /* prio col + up to 6 member cols */
-    grid-template-columns: 80px repeat(auto-fill, minmax(130px, 1fr));
-    background: white;
-  }
+/* ── BOARD ── */
+.board {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
 
-  /* prio-col occupies column 1, all rows */
-  .prio-col {
-    grid-column: 1;
-    grid-row: 1 / -1;
-    border-right: 1px solid var(--border-light);
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    padding: 0 12px 16px 14px;
-    gap: var(--tag-gap);
-  }
+/* ── CLUSTER ── */
+.cluster {
+  background: var(--surface);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  transition: box-shadow 0.2s ease;
+}
 
-  .prio-label {
-    height: var(--tag-h);
-    font-size: 10px;
-    font-weight: 700;
-    color: var(--text-muted);
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    display: flex;
-    align-items: center;
-  }
+.cluster:hover {
+  box-shadow: var(--shadow-md);
+}
 
-  /* each member is a flex column inside its grid cell */
-  .member {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 16px 10px;
-    border-right: 1px solid var(--border-light);
-    min-width: 0;
-  }
-  .member:last-child { border-right: none; }
+/* Cluster header */
+.cluster-header {
+  display: flex;
+  align-items: center;
+  padding: 14px 20px;
+  gap: 12px;
+  border-bottom: 1px solid var(--border);
+}
 
-  /* member top section — grows to push tags to bottom */
-  .member-top {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    flex: 1;
-    width: 100%;
-  }
+.cluster-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  flex-shrink: 0;
+}
 
-  .role-badge { font-size: 9px; font-weight: 700; letter-spacing: 0.4px; text-transform: uppercase; padding: 2px 7px; border-radius: 20px; margin-bottom: 8px; white-space: nowrap; }
-  .role-lead  { background: #fef3c7; color: #92400e; }
-  .role-daily { background: #dbeafe; color: #1e40af; }
-  .role-ui    { background: #ede9fe; color: #5b21b6; }
-  .role-support { background: #f0fdf4; color: #166534; }
-  .role-ops   { background: #fce7f3; color: #9d174d; }
-  .role-strat { background: #fff7ed; color: #c2410c; }
+.cluster-cortex  .cluster-icon { background: #e8f0ff; }
+.cluster-content .cluster-icon { background: #e6f6ee; }
+.cluster-intel   .cluster-icon { background: #fff5e0; }
+.cluster-neutral .cluster-icon { background: var(--p2-bg); }
 
-  .avatar { width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 700; color: white; margin-bottom: 10px; flex-shrink: 0; }
-  .member-name { font-size: 11.5px; font-weight: 700; text-align: center; line-height: 1.3; margin-bottom: 2px; }
-  .member-role-text { font-size: 10px; color: var(--text-muted); text-align: center; line-height: 1.3; font-weight: 500; }
+@media (prefers-color-scheme: dark) {
+  .cluster-cortex  .cluster-icon { background: #1a2a4a; }
+  .cluster-content .cluster-icon { background: #1a3028; }
+  .cluster-intel   .cluster-icon { background: #3a2a10; }
+  .cluster-neutral .cluster-icon { background: var(--p2-bg); }
+}
 
-  /* tags section — fixed height rows, aligned with prio labels */
-  .tags {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: var(--tag-gap);
-    margin-top: 12px;
-  }
+.cluster-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  letter-spacing: -0.1px;
+}
 
-  .tag {
-    border-radius: var(--radius-sm);
-    padding: 0 8px;
-    font-size: 10px;
-    font-weight: 600;
-    text-align: center;
-    height: var(--tag-h);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    line-height: 1.3;
-    gap: 4px;
-    flex-shrink: 0;
-  }
+.cluster-badge {
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--text-muted);
+  background: var(--p2-bg);
+  padding: 2px 8px;
+  border-radius: 20px;
+  border: 1px solid var(--border);
+}
 
-  .tag-empty { height: var(--tag-h); flex-shrink: 0; }
-  .tag-tbd { height: var(--tag-h); background: #f5f5f4; border: 1.5px dashed #d1cdc7; border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; font-size: 10px; color: var(--text-muted); font-weight: 600; flex-shrink: 0; }
+.cluster-spacer { flex: 1; }
 
-  .p1 { background: var(--p1); color: var(--p1-text); }
-  .p2 { background: var(--p2); color: var(--p2-text); }
-  .p3 { background: var(--p3); color: var(--p3-text); }
+.cluster-count {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text-faint);
+}
 
-  .badge { display: inline-flex; align-items: center; background: var(--new); color: white; font-size: 8px; font-weight: 800; padding: 2px 5px; border-radius: 20px; letter-spacing: 0.4px; white-space: nowrap; flex-shrink: 0; }
+/* ── CLUSTER BODY ── */
+.cluster-body {
+  display: grid;
+  grid-template-columns: 68px repeat(auto-fill, minmax(144px, 1fr));
+}
 
-  .av-honza  { background: linear-gradient(140deg, #5a67d8, #7c3aed); }
-  .av-filip  { background: linear-gradient(140deg, #3b82f6, #6d28d9); }
-  .av-franta { background: linear-gradient(140deg, #0ea5e9, #06b6d4); }
-  .av-petra  { background: linear-gradient(140deg, #10b981, #06b6d4); }
-  .av-barak  { background: linear-gradient(140deg, #f43f5e, #f59e0b); }
-  .av-martin { background: linear-gradient(140deg, #8b5cf6, #ec4899); }
-  .av-salwa  { background: linear-gradient(140deg, #fb923c, #fbbf24); color: #7c2d12 !important; }
-  .av-lukas-v{ background: linear-gradient(140deg, #312e81, #5b21b6); }
-  .av-lenka  { background: linear-gradient(140deg, #d97706, #f59e0b); }
-  .av-petr   { background: linear-gradient(140deg, #374151, #6b7280); }
-  .av-adela  { background: linear-gradient(140deg, #db2777, #9333ea); }
-  .av-lukas-k{ background: linear-gradient(140deg, #dc2626, #991b1b); }
-  .av-viktoria{background: linear-gradient(140deg, #92400e, #d97706); }
-  .av-vojtech{ background: linear-gradient(140deg, #166534, #16a34a); }
+.prio-col {
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 0 10px 16px 14px;
+  gap: var(--tag-gap);
+  background: var(--bg);
+}
 
-  @media (max-width: 700px) {
-    body { padding: 20px 12px; }
-    .board { padding: 24px 16px 32px; }
-    .board-header { flex-direction: column; gap: 12px; }
-    .prio-col { display: none; }
-    .team-body { grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); }
-  }
+.prio-label {
+  height: var(--tag-h);
+  font-size: 9px;
+  font-weight: 600;
+  color: var(--text-faint);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  display: flex;
+  align-items: center;
+}
+
+.member {
+  display: flex;
+  flex-direction: column;
+  padding: 16px 14px;
+  border-right: 1px solid var(--border);
+  min-width: 0;
+  background: var(--surface);
+  transition: background 0.12s;
+}
+
+.member:last-child { border-right: none; }
+.member:hover { background: var(--surface-hover); }
+
+.member-top {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  width: 100%;
+}
+
+/* Role badge */
+.role-badge {
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  padding: 2px 7px;
+  border-radius: 4px;
+  margin-bottom: 8px;
+  white-space: nowrap;
+  width: fit-content;
+}
+
+.role-vision  { background: #fdf0e0; color: #a05c00; }
+.role-stakhld { background: #e8f0ff; color: #1a4acc; }
+.role-lead    { background: #e8f5ee; color: #1a7a3c; }
+.role-ui      { background: #f0ecff; color: #6030c0; }
+.role-support { background: #f5f5f5; color: #505050; border: 1px solid var(--border); }
+.role-ops     { background: #fff0f5; color: #b0205a; }
+.role-strat   { background: #fff5e0; color: #905000; }
+
+@media (prefers-color-scheme: dark) {
+  .role-vision  { background: #3a2410; color: #f0a840; }
+  .role-stakhld { background: #142040; color: #7aaaf0; }
+  .role-lead    { background: #143020; color: #58c878; }
+  .role-ui      { background: #1e1438; color: #b090f8; }
+  .role-support { background: var(--p2-bg); color: var(--text-muted); border: 1px solid var(--border); }
+  .role-ops     { background: #2e0a1a; color: #e87aaa; }
+  .role-strat   { background: #2e1e04; color: #d09040; }
+}
+
+.member-name {
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.3;
+  margin-bottom: 2px;
+  color: var(--text);
+}
+
+.member-role-text {
+  font-size: 10px;
+  color: var(--text-muted);
+  line-height: 1.3;
+  font-weight: 400;
+}
+
+/* ── TAGS ── */
+.tags {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--tag-gap);
+  margin-top: 12px;
+}
+
+.tag {
+  padding: 0 9px;
+  font-size: 10px;
+  font-weight: 500;
+  height: var(--tag-h);
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 5px;
+  flex-shrink: 0;
+  border-radius: var(--radius-xs);
+  line-height: 1.2;
+}
+
+.tag-empty { height: var(--tag-h); flex-shrink: 0; }
+
+.tag-tbd {
+  height: var(--tag-h);
+  border: 1.5px dashed var(--border-strong);
+  border-radius: var(--radius-xs);
+  display: flex;
+  align-items: center;
+  padding: 0 9px;
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--text-faint);
+  flex-shrink: 0;
+}
+
+.p1 { background: var(--p1-bg); color: var(--p1-fg); }
+.p2 { background: var(--p2-bg); color: var(--p2-fg); }
+.p3 { background: var(--p3-bg); color: var(--p3-fg); border: 1px solid var(--p3-border); }
+
+.changed-badge {
+  font-size: 8px;
+  font-weight: 600;
+  padding: 1px 5px;
+  background: #fde8e8;
+  color: var(--red);
+  border-radius: 3px;
+  letter-spacing: 0.3px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+@media (prefers-color-scheme: dark) {
+  .changed-badge { background: #3a1414; color: var(--red); }
+}
+
+/* ── BOTTOM ROW ── */
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+/* ── FOOTER ── */
+.page-footer {
+  margin-top: 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+}
+
+.footer-text {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text-faint);
+}
+
+@media (max-width: 760px) {
+  body { padding: 24px 16px 60px; }
+  .page-header { flex-direction: column; align-items: flex-start; gap: 16px; }
+  .prio-col { display: none; }
+  .cluster-body { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
+  .two-col { grid-template-columns: 1fr; }
+}
 </style>
 </head>
 <body>
-<div class="board">
+<div class="page-wrap">
 
-  <div class="board-header">
-    <div class="board-title">
-      <h1>Product + UI Designers + Research<br>micro teams</h1>
-      <p>Design team ownership — Q2 2026</p>
+  <header class="page-header">
+    <div class="header-left">
+      <div class="page-title">Design Team</div>
     </div>
     <div class="legend">
-      <div class="legend-item"><div class="legend-dot" style="background:var(--p1)"></div>Primary</div>
-      <div class="legend-item"><div class="legend-dot" style="background:var(--p2)"></div>Secondary</div>
-      <div class="legend-item"><div class="legend-dot" style="background:var(--p3)"></div>Tertiary</div>
-      <div class="legend-item"><div class="legend-dot" style="background:var(--new)"></div>Changed</div>
+      <div class="legend-item"><div class="legend-pip" style="background:#e8eef8;border:1px solid #b0c4e8"></div>Primary</div>
+      <div class="legend-item"><div class="legend-pip" style="background:#f0fdf4;border:1px solid #bbf7d0"></div>Secondary</div>
+      <div class="legend-item"><div class="legend-pip" style="background:#fdf4ff;border:1px solid #e9d5ff"></div>Tertiary</div>
+      <div class="legend-item"><div class="legend-pip" style="background:#fde8e8;border:1px solid var(--red)"></div>Changed</div>
     </div>
-  </div>
+  </header>
 
-  <div class="toggle-bar">
-    <button class="toggle-btn active" onclick="switchView('microteams',this)">📋 Micro teams</button>
-    <button class="toggle-btn" onclick="switchView('clusters',this)">🎯 Strategic clusters</button>
-    <button class="toggle-btn" onclick="switchView('clusters2',this)">🔀 Strategic clusters v2</button>
-  </div>
+  <main class="board">
 
-  <!-- ======= VIEW 1: MICRO TEAMS ======= -->
-  <div id="view-microteams" class="view active">
-    <div class="micro-teams">
-
-      <!-- ANALYTICS + VOC -->
-      <div class="micro-team">
-        <div class="team-header">Analytics team + VOC team</div>
-        <div class="team-body">
-          <div class="prio-col">
-            <div class="prio-label">Primary</div>
-            <div class="prio-label">Secondary</div>
-            <div class="prio-label">Tertiary</div>
+    <!-- 01 CORTEX AI -->
+    <div class="cluster cluster-cortex">
+      <div class="cluster-header">
+        <div class="cluster-icon">🤖</div>
+        <div class="cluster-name">Cortex AI</div>
+        <div class="cluster-spacer"></div>
+        <div class="cluster-count">4 members</div>
+      </div>
+      <div class="cluster-body">
+        <div class="prio-col">
+          <div class="prio-label">Primary</div>
+          <div class="prio-label">Secondary</div>
+          <div class="prio-label">Tertiary</div>
+        </div>
+        <div class="member">
+          <div class="member-top">
+            <div class="role-badge role-vision">Vision</div>
+            <div class="member-name">Frantisek Canda</div>
+            <div class="member-role-text">Staff Product Designer</div>
           </div>
-          <div class="member">
-            <div class="member-top"><div class="avatar av-martin">M</div><div class="member-name">Martin Salena</div><div class="member-role-text">Product Designer</div></div>
-            <div class="tags"><div class="tag p1">Voice of Customers <span class="badge">NEW</span></div><div class="tag p2">Unified Analytics</div><div class="tag p3">Dashboard</div></div>
+          <div class="tags">
+            <div class="tag p1">AI Cortex</div>
+            <div class="tag p2">PIE</div>
+            <div class="tag p3">Bot?</div>
           </div>
-          <div class="member">
-            <div class="member-top"><div class="avatar av-salwa">S</div><div class="member-name">Salwa Benaissa</div><div class="member-role-text">Junior Product Designer</div></div>
-            <div class="tags"><div class="tag p1">Unified Analytics <span class="badge">NEW</span></div><div class="tag p2">Ratings & Reviews <span class="badge">NEW</span></div><div class="tag p3">Knowledge</div></div>
+        </div>
+        <div class="member">
+          <div class="member-top">
+            <div class="role-badge role-stakhld">Stakeholder</div>
+            <div class="member-name">Filip Hamek</div>
+            <div class="member-role-text">Senior Product Designer</div>
           </div>
-          <div class="member">
-            <div class="member-top"><div class="avatar av-lukas-v">L</div><div class="member-name">Lukas Vilkus</div><div class="member-role-text">Staff UI Designer</div></div>
-            <div class="tags"><div class="tag p1">UI Owner</div><div class="tag p2">Soul</div><div class="tag p3">AI Cortex</div></div>
+          <div class="tags">
+            <div class="tag p1">AI Cortex</div>
+            <div class="tag p2">Settings</div>
+            <div class="tag-empty"></div>
+          </div>
+        </div>
+        <div class="member">
+          <div class="member-top">
+            <div class="role-badge role-ui">UI</div>
+            <div class="member-name">Lukas Vilkus</div>
+            <div class="member-role-text">Staff UI Designer</div>
+          </div>
+          <div class="tags">
+            <div class="tag p1">AI Cortex (UI)</div>
+            <div class="tag p2">Soul</div>
+            <div class="tag-empty"></div>
+          </div>
+        </div>
+        <div class="member">
+          <div class="member-top">
+            <div class="role-badge role-support">Support</div>
+            <div class="member-name">Jan Cermak</div>
+            <div class="member-role-text">Director of Product &amp; UX Design</div>
+          </div>
+          <div class="tags">
+            <div class="tag p1">Product design team</div>
+            <div class="tag p2">AI Cortex</div>
+            <div class="tag p3">Other</div>
           </div>
         </div>
       </div>
-
-      <!-- CARE, COMMUNITY, PIE, BOT -->
-      <div class="micro-team">
-        <div class="team-header">Care, Community, PIE, Bot team</div>
-        <div class="team-body">
-          <div class="prio-col">
-            <div class="prio-label">Primary</div>
-            <div class="prio-label">Secondary</div>
-            <div class="prio-label">Tertiary</div>
-          </div>
-          <div class="member">
-            <div class="member-top"><div class="avatar av-franta">F</div><div class="member-name">Frantisek Canda</div><div class="member-role-text">Staff Product Designer</div></div>
-            <div class="tags"><div class="tag p1">PIE</div><div class="tag p2">Bot</div><div class="tag p3">AI Cortex</div></div>
-          </div>
-          <div class="member">
-            <div class="member-top"><div class="avatar av-barak">B</div><div class="member-name">Barak Landesman</div><div class="member-role-text">Product Designer</div></div>
-            <div class="tags"><div class="tag p1">Care</div><div class="tag p2">Community</div><div class="tag-tbd">❓ Bot TBD</div></div>
-          </div>
-          <div class="member">
-            <div class="member-top"><div class="avatar av-petr">P</div><div class="member-name">Petr Novak</div><div class="member-role-text">Director of UI & Design System</div></div>
-            <div class="tags"><div class="tag p1">UI & Design System</div><div class="tag p2">Soul</div><div class="tag p3">UI Owner</div></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- AI CORTEX, CONTENT OS, UGC -->
-      <div class="micro-team">
-        <div class="team-header">AI Cortex, Content OS, UGC team</div>
-        <div class="team-body">
-          <div class="prio-col">
-            <div class="prio-label">Primary</div>
-            <div class="prio-label">Secondary</div>
-            <div class="prio-label">Tertiary</div>
-          </div>
-          <div class="member">
-            <div class="member-top"><div class="avatar av-filip">F</div><div class="member-name">Filip Hamek</div><div class="member-role-text">Senior Product Designer</div></div>
-            <div class="tags"><div class="tag p1">AI Cortex</div><div class="tag p2">Settings</div><div class="tag-empty"></div></div>
-          </div>
-          <div class="member">
-            <div class="member-top"><div class="avatar av-petra">P</div><div class="member-name">Petra Suralova</div><div class="member-role-text">Product Designer</div></div>
-            <div class="tags"><div class="tag p1">Content OS</div><div class="tag p2">Collections / Link in bio</div><div class="tag p3">UGC</div></div>
-          </div>
-          <div class="member">
-            <div class="member-top"><div class="avatar av-lenka">L</div><div class="member-name">Lenka Dobranska</div><div class="member-role-text">Senior UI Designer</div></div>
-            <div class="tags"><div class="tag p1">UI Owner</div><div class="tag p2">Soul</div><div class="tag-empty"></div></div>
-          </div>
-          <div class="member">
-            <div class="member-top"><div class="avatar av-adela">A</div><div class="member-name">Adela Paroulkova</div><div class="member-role-text">Senior Design Strategist</div></div>
-            <div class="tags"><div class="tag p1">Web</div><div class="tag p2">Visual design</div><div class="tag-empty"></div></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- DIRECTOR -->
-      <div class="micro-team team-director">
-        <div class="team-header">Director</div>
-        <div class="team-body">
-          <div class="prio-col">
-            <div class="prio-label">Primary</div>
-            <div class="prio-label">Secondary</div>
-            <div class="prio-label">Tertiary</div>
-          </div>
-          <div class="member">
-            <div class="member-top"><div class="avatar av-honza">J</div><div class="member-name">Jan Cermak</div><div class="member-role-text">Director of Product & UX Design</div></div>
-            <div class="tags"><div class="tag p1">Product design team</div><div class="tag p2">AI Cortex</div><div class="tag p3">Other</div></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- PROMO -->
-      <div class="micro-team">
-        <div class="team-header">Promo team</div>
-        <div class="team-body">
-          <div class="prio-col">
-            <div class="prio-label">Primary</div>
-            <div class="prio-label">Secondary</div>
-            <div class="prio-label">Tertiary</div>
-          </div>
-          <div class="member">
-            <div class="member-top"><div class="avatar av-lukas-k">L</div><div class="member-name">Lukas Kus</div><div class="member-role-text">Motion Designer</div></div>
-            <div class="tags"><div class="tag p1">Motion</div><div class="tag p2">Video demos</div><div class="tag p3">Photographer</div></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- RESEARCH -->
-      <div class="micro-team">
-        <div class="team-header">Research team</div>
-        <div class="team-body">
-          <div class="prio-col">
-            <div class="prio-label">Primary</div>
-            <div class="prio-label">Secondary</div>
-            <div class="prio-label">Tertiary</div>
-          </div>
-          <div class="member">
-            <div class="member-top"><div class="avatar av-viktoria">V</div><div class="member-name">Viktoria Rozshaka</div><div class="member-role-text">Senior UX Strategist & Coach</div></div>
-            <div class="tags"><div class="tag p1">Research team</div><div class="tag p2">Care</div><div class="tag p3">Publisher</div></div>
-          </div>
-          <div class="member">
-            <div class="member-top"><div class="avatar av-vojtech">V</div><div class="member-name">Vojtech Sima</div><div class="member-role-text">UX Researcher</div></div>
-            <div class="tags"><div class="tag p1">Research</div><div class="tag p2">Unified Analytics</div><div class="tag p3">Teams, Platform knowledge</div></div>
-          </div>
-        </div>
-      </div>
-
     </div>
-  </div>
 
-  <!-- ======= VIEW 2: STRATEGIC CLUSTERS ======= -->
-  <div id="view-clusters" class="view">
-    <div class="micro-teams">
+    <!-- 02 CONTENT OS + CARE -->
+    <div class="cluster cluster-content">
+      <div class="cluster-header">
+        <div class="cluster-icon">📝</div>
+        <div class="cluster-name">Content OS + Care</div>
+        <div class="cluster-spacer"></div>
+        <div class="cluster-count">4 members</div>
+      </div>
+      <div class="cluster-body">
+        <div class="prio-col">
+          <div class="prio-label">Primary</div>
+          <div class="prio-label">Secondary</div>
+          <div class="prio-label">Tertiary</div>
+        </div>
+        <div class="member">
+          <div class="member-top">
+            <div class="role-badge role-lead">Lead</div>
+            <div class="member-name">Petra Suralova</div>
+            <div class="member-role-text">Product Designer</div>
+          </div>
+          <div class="tags">
+            <div class="tag p1">Content OS</div>
+            <div class="tag p2">Collections / Link in bio</div>
+            <div class="tag p3">UGC</div>
+          </div>
+        </div>
+        <div class="member">
+          <div class="member-top">
+            <div class="role-badge role-lead">Lead</div>
+            <div class="member-name">Barak Landesman</div>
+            <div class="member-role-text">Product Designer</div>
+          </div>
+          <div class="tags">
+            <div class="tag p1">Care</div>
+            <div class="tag p2">Community</div>
+            <div class="tag-empty"></div>
+          </div>
+        </div>
+        <div class="member">
+          <div class="member-top">
+            <div class="role-badge role-ui">UI</div>
+            <div class="member-name">Adela Paroulkova</div>
+            <div class="member-role-text">Senior Design Strategist</div>
+          </div>
+          <div class="tags">
+            <div class="tag p1">Web</div>
+            <div class="tag p2">Visual design</div>
+            <div class="tag p3">Knowledge</div>
+          </div>
+        </div>
+        <div class="member">
+          <div class="member-top">
+            <div class="role-badge role-ui">UI</div>
+            <div class="member-name">Lenka Dobranska</div>
+            <div class="member-role-text">Senior UI Designer</div>
+          </div>
+          <div class="tags">
+            <div class="tag p1">UI Owner</div>
+            <div class="tag p2">Soul</div>
+            <div class="tag-empty"></div>
+          </div>
+        </div>
+      </div>
+    </div>
 
-      <!-- CORTEX AI -->
-      <div class="micro-team cluster-cortex">
-        <div class="team-header">🔵 Cortex AI <span class="cluster-label">Strategic priority</span></div>
-        <div class="team-body">
+    <!-- 03 VOC + UNA -->
+    <div class="cluster cluster-intel">
+      <div class="cluster-header">
+        <div class="cluster-icon">📊</div>
+        <div class="cluster-name">VOC + UNA</div>
+        <div class="cluster-spacer"></div>
+        <div class="cluster-count">3 members</div>
+      </div>
+      <div class="cluster-body">
+        <div class="prio-col">
+          <div class="prio-label">Primary</div>
+          <div class="prio-label">Secondary</div>
+          <div class="prio-label">Tertiary</div>
+        </div>
+        <div class="member">
+          <div class="member-top">
+            <div class="role-badge role-lead">Lead</div>
+            <div class="member-name">Martin Salena</div>
+            <div class="member-role-text">Product Designer</div>
+          </div>
+          <div class="tags">
+            <div class="tag p1">Voice of Customers</div>
+            <div class="tag p2">Unified Analytics</div>
+            <div class="tag p3">Dashboard</div>
+          </div>
+        </div>
+        <div class="member">
+          <div class="member-top">
+            <div class="role-badge role-support">Support</div>
+            <div class="member-name">Salwa Benaissa</div>
+            <div class="member-role-text">Junior Product Designer</div>
+          </div>
+          <div class="tags">
+            <div class="tag p1">Unified Analytics</div>
+            <div class="tag p2">Ratings &amp; Reviews</div>
+            <div class="tag p3">Knowledge</div>
+          </div>
+        </div>
+        <div class="member">
+          <div class="member-top">
+            <div class="role-badge role-ops">Design Ops</div>
+            <div class="member-name">Petr Novak</div>
+            <div class="member-role-text">Director of UI &amp; Design System</div>
+          </div>
+          <div class="tags">
+            <div class="tag p1">UI &amp; Design System</div>
+            <div class="tag p2">Soul</div>
+            <div class="tag p3">UI Owner</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 04 + 05 -->
+    <div class="two-col">
+
+      <div class="cluster cluster-neutral">
+        <div class="cluster-header">
+          <div class="cluster-icon">🎬</div>
+          <div class="cluster-name">Promo</div>
+          <div class="cluster-spacer"></div>
+          <div class="cluster-count">1 member</div>
+        </div>
+        <div class="cluster-body">
           <div class="prio-col">
             <div class="prio-label">Primary</div>
             <div class="prio-label">Secondary</div>
             <div class="prio-label">Tertiary</div>
           </div>
           <div class="member">
-            <div class="member-top"><div class="role-badge role-lead">Lead</div><div class="avatar av-franta">F</div><div class="member-name">Frantisek Canda</div><div class="member-role-text">Staff Product Designer</div></div>
-            <div class="tags"><div class="tag p1">AI Cortex <span class="badge">NEW</span></div><div class="tag p2">PIE</div><div class="tag-empty"></div></div>
-          </div>
-          <div class="member">
-            <div class="member-top"><div class="role-badge role-daily">Daily comms</div><div class="avatar av-filip">F</div><div class="member-name">Filip Hamek</div><div class="member-role-text">Senior Product Designer</div></div>
-            <div class="tags"><div class="tag p1">AI Cortex</div><div class="tag p2">Settings</div><div class="tag-empty"></div></div>
-          </div>
-          <div class="member">
-            <div class="member-top"><div class="role-badge role-ui">UI</div><div class="avatar av-lukas-v">L</div><div class="member-name">Lukas Vilkus</div><div class="member-role-text">Staff UI Designer</div></div>
-            <div class="tags"><div class="tag p1">AI Cortex (UI)</div><div class="tag p2">Soul</div><div class="tag-empty"></div></div>
-          </div>
-          <div class="member">
-            <div class="member-top"><div class="role-badge role-support">Support</div><div class="avatar av-honza">J</div><div class="member-name">Jan Cermak</div><div class="member-role-text">Director of Product & UX Design</div></div>
-            <div class="tags"><div class="tag p1">Product design team</div><div class="tag p2">AI Cortex</div><div class="tag p3">Other</div></div>
+            <div class="member-top">
+              <div class="member-name">Lukas Kus</div>
+              <div class="member-role-text">Motion Designer</div>
+            </div>
+            <div class="tags">
+              <div class="tag p1">Motion</div>
+              <div class="tag p2">Video demos</div>
+              <div class="tag p3">Photographer</div>
+            </div>
           </div>
         </div>
       </div>
 
-      <!-- CONTENT OS + CARE -->
-      <div class="micro-team cluster-content">
-        <div class="team-header">🟢 Content OS + Care <span class="cluster-label">Strategic priority</span></div>
-        <div class="team-body">
-          <div class="prio-col">
-            <div class="prio-label">Primary</div>
-            <div class="prio-label">Secondary</div>
-            <div class="prio-label">Tertiary</div>
-          </div>
-          <div class="member">
-            <div class="member-top"><div class="role-badge role-lead">Lead</div><div class="avatar av-petra">P</div><div class="member-name">Petra Suralova</div><div class="member-role-text">Product Designer</div></div>
-            <div class="tags"><div class="tag p1">Content OS</div><div class="tag p2">Collections / Link in bio</div><div class="tag p3">UGC</div></div>
-          </div>
-          <div class="member">
-            <div class="member-top"><div class="role-badge role-lead">Lead</div><div class="avatar av-barak">B</div><div class="member-name">Barak Landesman</div><div class="member-role-text">Product Designer</div></div>
-            <div class="tags"><div class="tag p1">Care</div><div class="tag p2">Community</div><div class="tag-tbd">❓ Bot TBD</div></div>
-          </div>
-          <div class="member">
-            <div class="member-top"><div class="role-badge role-strat">Strategist</div><div class="avatar av-adela">A</div><div class="member-name">Adela Paroulkova</div><div class="member-role-text">Senior Design Strategist</div></div>
-            <div class="tags"><div class="tag p1">Web</div><div class="tag p2">Visual design</div><div class="tag-empty"></div></div>
-          </div>
-          <div class="member">
-            <div class="member-top"><div class="role-badge role-ui">UI</div><div class="avatar av-lenka">L</div><div class="member-name">Lenka Dobranska</div><div class="member-role-text">Senior UI Designer</div></div>
-            <div class="tags"><div class="tag p1">UI Owner</div><div class="tag p2">Soul</div><div class="tag-empty"></div></div>
-          </div>
+      <div class="cluster cluster-neutral">
+        <div class="cluster-header">
+          <div class="cluster-icon">🔍</div>
+          <div class="cluster-name">Research</div>
+          <div class="cluster-spacer"></div>
+          <div class="cluster-count">2 members</div>
         </div>
-      </div>
-
-      <!-- VOC + UNA -->
-      <div class="micro-team cluster-intel">
-        <div class="team-header">🟡 VOC + UNA <span class="cluster-label">Strategic priority</span></div>
-        <div class="team-body">
+        <div class="cluster-body">
           <div class="prio-col">
             <div class="prio-label">Primary</div>
             <div class="prio-label">Secondary</div>
             <div class="prio-label">Tertiary</div>
           </div>
           <div class="member">
-            <div class="member-top"><div class="role-badge role-lead">Lead</div><div class="avatar av-martin">M</div><div class="member-name">Martin Salena</div><div class="member-role-text">Product Designer</div></div>
-            <div class="tags"><div class="tag p1">Voice of Customers <span class="badge">NEW</span></div><div class="tag p2">Unified Analytics</div><div class="tag p3">Dashboard</div></div>
+            <div class="member-top">
+              <div class="member-name">Viktoria Rozshaka</div>
+              <div class="member-role-text">Senior UX Strategist &amp; Coach</div>
+            </div>
+            <div class="tags">
+              <div class="tag p1">Research team</div>
+              <div class="tag p2">Care</div>
+              <div class="tag p3">Publisher</div>
+            </div>
           </div>
           <div class="member">
-            <div class="member-top"><div class="role-badge role-support">Support</div><div class="avatar av-salwa">S</div><div class="member-name">Salwa Benaissa</div><div class="member-role-text">Junior Product Designer</div></div>
-            <div class="tags"><div class="tag p1">Unified Analytics <span class="badge">NEW</span></div><div class="tag p2">Ratings & Reviews <span class="badge">NEW</span></div><div class="tag p3">Knowledge</div></div>
-          </div>
-          <div class="member">
-            <div class="member-top"><div class="role-badge role-ops">Design Ops</div><div class="avatar av-petr">P</div><div class="member-name">Petr Novak</div><div class="member-role-text">Director of UI & Design System</div></div>
-            <div class="tags"><div class="tag p1">UI & Design System</div><div class="tag p2">Soul</div><div class="tag p3">UI Owner</div></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- PROMO -->
-      <div class="micro-team">
-        <div class="team-header">Promo team</div>
-        <div class="team-body">
-          <div class="prio-col">
-            <div class="prio-label">Primary</div>
-            <div class="prio-label">Secondary</div>
-            <div class="prio-label">Tertiary</div>
-          </div>
-          <div class="member">
-            <div class="member-top"><div class="avatar av-lukas-k">L</div><div class="member-name">Lukas Kus</div><div class="member-role-text">Motion Designer</div></div>
-            <div class="tags"><div class="tag p1">Motion</div><div class="tag p2">Video demos</div><div class="tag p3">Photographer</div></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- RESEARCH -->
-      <div class="micro-team">
-        <div class="team-header">Research team</div>
-        <div class="team-body">
-          <div class="prio-col">
-            <div class="prio-label">Primary</div>
-            <div class="prio-label">Secondary</div>
-            <div class="prio-label">Tertiary</div>
-          </div>
-          <div class="member">
-            <div class="member-top"><div class="avatar av-viktoria">V</div><div class="member-name">Viktoria Rozshaka</div><div class="member-role-text">Senior UX Strategist & Coach</div></div>
-            <div class="tags"><div class="tag p1">Research team</div><div class="tag p2">Care</div><div class="tag p3">Publisher</div></div>
-          </div>
-          <div class="member">
-            <div class="member-top"><div class="avatar av-vojtech">V</div><div class="member-name">Vojtech Sima</div><div class="member-role-text">UX Researcher</div></div>
-            <div class="tags"><div class="tag p1">Research</div><div class="tag p2">Unified Analytics</div><div class="tag p3">Teams, Platform knowledge</div></div>
+            <div class="member-top">
+              <div class="member-name">Vojtech Sima</div>
+              <div class="member-role-text">UX Researcher</div>
+            </div>
+            <div class="tags">
+              <div class="tag p1">Research</div>
+              <div class="tag p2">Unified Analytics</div>
+              <div class="tag p3">Teams, Platform</div>
+            </div>
           </div>
         </div>
       </div>
 
     </div>
-  </div>
 
+  </main>
 
-  <!-- VIEW 3: STRATEGIC CLUSTERS V2 -->
-  <div id="view-clusters2" class="view">
-    <div class="micro-teams">
+  <footer class="page-footer">
+    <div class="footer-text">Emplifi · Design Organization · Q2 2026</div>
+    <div class="footer-text">14 members · 3 strategic clusters</div>
+  </footer>
 
-      <div class="micro-team cluster-cortex">
-        <div class="team-header">🔵 Cortex AI <span class="cluster-label">Strategic priority</span></div>
-        <div class="team-body">
-          <div class="prio-col"><div class="prio-label">Primary</div><div class="prio-label">Secondary</div><div class="prio-label">Tertiary</div></div>
-          <div class="member"><div class="member-top"><div class="role-badge role-lead">Lead</div><div class="avatar av-franta">F</div><div class="member-name">Frantisek Canda</div><div class="member-role-text">Staff Product Designer</div></div><div class="tags"><div class="tag p1">AI Cortex</div><div class="tag p2">PIE</div><div class="tag-empty"></div></div></div>
-          <div class="member"><div class="member-top"><div class="role-badge role-support">Support</div><div class="avatar av-honza">J</div><div class="member-name">Jan Cermak</div><div class="member-role-text">Director of Product & UX Design</div></div><div class="tags"><div class="tag p1">Product design team</div><div class="tag p2">AI Cortex</div><div class="tag p3">Other</div></div></div>
-          <div class="member"><div class="member-top"><div class="role-badge role-ui">UI</div><div class="avatar av-lukas-v">L</div><div class="member-name">Lukas Vilkus</div><div class="member-role-text">Staff UI Designer</div></div><div class="tags"><div class="tag p1">AI Cortex (UI)</div><div class="tag p2">Soul</div><div class="tag-empty"></div></div></div>
-        </div>
-      </div>
-
-      <div class="micro-team cluster-content">
-        <div class="team-header">🟢 Content OS + Care <span class="cluster-label">Strategic priority</span></div>
-        <div class="team-body">
-          <div class="prio-col"><div class="prio-label">Primary</div><div class="prio-label">Secondary</div><div class="prio-label">Tertiary</div></div>
-          <div class="member"><div class="member-top"><div class="role-badge role-lead">Lead</div><div class="avatar av-petra">P</div><div class="member-name">Petra Suralova</div><div class="member-role-text">Product Designer</div></div><div class="tags"><div class="tag p1">Content OS</div><div class="tag p2">Collections / Link in bio</div><div class="tag p3">UGC</div></div></div>
-          <div class="member"><div class="member-top"><div class="role-badge role-lead">Lead</div><div class="avatar av-barak">B</div><div class="member-name">Barak Landesman</div><div class="member-role-text">Product Designer</div></div><div class="tags"><div class="tag p1">Care</div><div class="tag p2">Community</div><div class="tag-tbd">❓ Bot TBD</div></div></div>
-          <div class="member"><div class="member-top"><div class="role-badge role-strat">Strategist</div><div class="avatar av-adela">A</div><div class="member-name">Adela Paroulkova</div><div class="member-role-text">Senior Design Strategist</div></div><div class="tags"><div class="tag p1">Web</div><div class="tag p2">Visual design</div><div class="tag-empty"></div></div></div>
-          <div class="member"><div class="member-top"><div class="role-badge role-ui">UI</div><div class="avatar av-lenka">L</div><div class="member-name">Lenka Dobranska</div><div class="member-role-text">Senior UI Designer</div></div><div class="tags"><div class="tag p1">UI Owner</div><div class="tag p2">Soul</div><div class="tag-empty"></div></div></div>
-        </div>
-      </div>
-
-      <div class="micro-team cluster-intel">
-        <div class="team-header">🟡 VOC + UNA <span class="cluster-label">Strategic priority</span></div>
-        <div class="team-body">
-          <div class="prio-col"><div class="prio-label">Primary</div><div class="prio-label">Secondary</div><div class="prio-label">Tertiary</div></div>
-          <div class="member"><div class="member-top"><div class="role-badge role-lead">Lead</div><div class="avatar av-martin">M</div><div class="member-name">Martin Salena</div><div class="member-role-text">Product Designer</div></div><div class="tags"><div class="tag p1">Voice of Customers</div><div class="tag p2">Unified Analytics</div><div class="tag-empty"></div></div></div>
-          <div class="member"><div class="member-top"><div class="role-badge role-daily">Daily comms</div><div class="avatar av-filip">F</div><div class="member-name">Filip Hamek</div><div class="member-role-text">Senior Product Designer</div></div><div class="tags"><div class="tag p1">Unified Analytics</div><div class="tag p2">Settings</div><div class="tag p3">AI Cortex</div></div></div>
-          <div class="member"><div class="member-top"><div class="role-badge role-support">Support</div><div class="avatar av-salwa">S</div><div class="member-name">Salwa Benaissa</div><div class="member-role-text">Junior Product Designer</div></div><div class="tags"><div class="tag p1">Ratings & Reviews</div><div class="tag p2">Knowledge</div><div class="tag-tbd">❓ Bot TBD</div></div></div>
-          <div class="member"><div class="member-top"><div class="role-badge role-ops">Design Ops</div><div class="avatar av-petr">P</div><div class="member-name">Petr Novak</div><div class="member-role-text">Director of UI & Design System</div></div><div class="tags"><div class="tag p1">UI & Design System</div><div class="tag p2">Soul</div><div class="tag p3">UI Owner</div></div></div>
-        </div>
-      </div>
-
-      <div class="micro-team">
-        <div class="team-header">Promo team</div>
-        <div class="team-body">
-          <div class="prio-col"><div class="prio-label">Primary</div><div class="prio-label">Secondary</div><div class="prio-label">Tertiary</div></div>
-          <div class="member"><div class="member-top"><div class="avatar av-lukas-k">L</div><div class="member-name">Lukas Kus</div><div class="member-role-text">Motion Designer</div></div><div class="tags"><div class="tag p1">Motion</div><div class="tag p2">Video demos</div><div class="tag p3">Photographer</div></div></div>
-        </div>
-      </div>
-
-      <div class="micro-team">
-        <div class="team-header">Research team</div>
-        <div class="team-body">
-          <div class="prio-col"><div class="prio-label">Primary</div><div class="prio-label">Secondary</div><div class="prio-label">Tertiary</div></div>
-          <div class="member"><div class="member-top"><div class="avatar av-viktoria">V</div><div class="member-name">Viktoria Rozshaka</div><div class="member-role-text">Senior UX Strategist & Coach</div></div><div class="tags"><div class="tag p1">Research team</div><div class="tag p2">Care</div><div class="tag p3">Publisher</div></div></div>
-          <div class="member"><div class="member-top"><div class="avatar av-vojtech">V</div><div class="member-name">Vojtech Sima</div><div class="member-role-text">UX Researcher</div></div><div class="tags"><div class="tag p1">Research</div><div class="tag p2">Unified Analytics</div><div class="tag p3">Teams, Platform knowledge</div></div></div>
-        </div>
-      </div>
-
-    </div>
-  </div>
 </div>
-<script>
-  function switchView(view, btn) {
-    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
-    document.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active'));
-    document.getElementById('view-' + view).classList.add('active');
-    btn.classList.add('active');
-  }
-</script>
 </body>
 </html>
