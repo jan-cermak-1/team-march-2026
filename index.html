@@ -22,12 +22,13 @@
 
   --p1-bg: #6CCF5A;
   --p1-fg: #1a5c14;
+  --p1-border: #4aad3a;
   --p2-bg: #FFF1CF;
   --p2-fg: #8B6914;
   --p2-border: #e8d4a8;
-  --p3-bg: #C8E7F8;
-  --p3-fg: #1e5a7a;
-  --p3-border: #a8d4e8;
+  --p3-bg: #ffffff;
+  --p3-fg: #4a4a48;
+  --p3-border: #d0d0cc;
 
   --shadow-sm: 0 1px 3px rgba(0,0,0,0.04), 0 4px 12px rgba(0,0,0,0.04);
   --shadow-md: 0 2px 8px rgba(0,0,0,0.06), 0 8px 28px rgba(0,0,0,0.07);
@@ -306,8 +307,8 @@ body {
   flex-shrink: 0;
 }
 
-.p1 { background: var(--p1-bg); color: var(--p1-fg); }
-.p2 { background: var(--p2-bg); color: var(--p2-fg); }
+.p1 { background: var(--p1-bg); color: var(--p1-fg); font-weight: 700; border: 1px solid var(--p1-border); }
+.p2 { background: var(--p2-bg); color: var(--p2-fg); border: 1px solid var(--p2-border); }
 .p3 { background: var(--p3-bg); color: var(--p3-fg); border: 1px solid var(--p3-border); }
 
 .changed-badge {
@@ -362,9 +363,9 @@ body {
       <div class="page-title">Design Team</div>
     </div>
     <div class="legend">
-      <div class="legend-item"><div class="legend-pip" style="background:#6CCF5A;border:1px solid #5ab848"></div>Primary</div>
+      <div class="legend-item"><div class="legend-pip" style="background:#6CCF5A;border:1px solid #4aad3a"></div>Primary</div>
       <div class="legend-item"><div class="legend-pip" style="background:#FFF1CF;border:1px solid #e8d4a8"></div>Secondary</div>
-      <div class="legend-item"><div class="legend-pip" style="background:#C8E7F8;border:1px solid #a8d4e8"></div>Tertiary</div>
+      <div class="legend-item"><div class="legend-pip" style="background:#ffffff;border:1px solid #d0d0cc"></div>Tertiary</div>
     </div>
   </header>
 
