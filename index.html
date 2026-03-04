@@ -6,6 +6,7 @@
 <title>Design Team · Q2 2026</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.cdnfonts.com/css/dt-getai-grotesk-display" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -77,11 +78,31 @@ body {
 }
 
 .page-title {
-  font-size: 32px;
-  font-weight: 700;
+  padding-top: 11px;
+  padding-bottom: 11px;
+  font-family: 'DT Getai Grotesk Display', sans-serif;
+  font-size: 60px;
+  font-weight: 100;
   letter-spacing: -0.8px;
   line-height: 1.1;
-  color: var(--text);
+  background: linear-gradient(
+    90deg,
+    #191918 0%,
+    #4a4a48 25%,
+    #6a6a68 50%,
+    #4a4a48 75%,
+    #191918 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: title-gradient 12s ease-in-out infinite;
+}
+
+@keyframes title-gradient {
+  0%, 100% { background-position: 0% center; }
+  50% { background-position: 100% center; }
 }
 
 .page-subtitle {
@@ -96,7 +117,7 @@ body {
   gap: 16px;
   align-items: center;
   flex-wrap: wrap;
-  padding-bottom: 2px;
+  padding-bottom: 29px;
 }
 
 .legend-item {
