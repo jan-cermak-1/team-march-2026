@@ -5,8 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Design Team · Q2 2026</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link href="https://fonts.cdnfonts.com/css/dt-getai-grotesk-display" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -86,33 +85,12 @@ body {
 .page-title {
   padding-top: 11px;
   padding-bottom: 11px;
-  font-family: 'DT Getai Grotesk Display', sans-serif;
+  font-family: 'Figtree', sans-serif;
   font-size: 60px;
-  font-weight: 100;
+  font-weight: 600;
   letter-spacing: -0.8px;
   line-height: 1.1;
-  background: linear-gradient(
-    90deg,
-    #191918 0%,
-    #4aad3a 12%,
-    #6CCF5A 22%,
-    #4a4a48 35%,
-    #6a6a68 50%,
-    #8B6914 65%,
-    #e8d4a8 78%,
-    #4a4a48 90%,
-    #191918 100%
-  );
-  background-size: 300% auto;
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  animation: title-gradient 60s ease-in-out infinite;
-}
-
-@keyframes title-gradient {
-  0%, 100% { background-position: 0% center; }
-  50% { background-position: 100% center; }
+  color: var(--text);
 }
 
 .page-subtitle {
